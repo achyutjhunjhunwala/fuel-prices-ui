@@ -6,7 +6,7 @@ import './table.css';
 
 export default function FuelPriceTable() {
   return useObserver(() => {
-    const fuel = FuelPricesStore.pricesByProvider;
+    const fuel = FuelPricesStore.typesByProviders;
     console.log(fuel);
     return (
       <table>

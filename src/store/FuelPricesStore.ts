@@ -7,32 +7,11 @@ export class FuelPricesStore {
   @observable supol: any = [];
   @observable omv: any = [];
   @observable isLoadingComplete: boolean = false;
-  @observable selectedProvider: any = 'Aral1';
+  @observable selectedProvider: string = 'Aral1';
+  @observable selectedFuelType: string = '';
   @observable providers: any = [];
 
   constructor() {
-    // reaction(
-    //     // The callback will run only on change
-    //     // of observables described in this function
-    //     () => this.isLoadingComplete,
-    //     // The callback, to be called each time the above expression changes
-    //     () => {
-    //         if (!this.isLoadingComplete) {
-    //           this.getFuelPrices()
-    //           .then(prices => {
-    //             const flattenedPrices = this.flatPriceData(prices);
-    //             this.updateFuelPrices(flattenedPrices)
-    //             const priceByProvider = this.orderPriceByProvider(flattenedPrices);
-    //             console.log(priceByProvider);
-    //             this.updateAral1Price(priceByProvider.Aral1);
-    //             this.updateAral2Price(priceByProvider.Aral2);
-    //             this.updateSupolPrice(priceByProvider.Supol);
-    //             this.updateOMVPrice(priceByProvider.OMV);
-    //           });
-    //         }
-    //     }
-    // )
-
     this.getProviders()
       .then(providers => {
         const providersName = providers.map((provider: any) => provider.name + provider.id);
@@ -58,6 +37,12 @@ export class FuelPricesStore {
     return priceByProvider[this.selectedProvider];
   }
 
+  @computed
+  get typesByProviders() {
+    const [ pricesByProvider ] = this.pricesByProvider ? this.pricesByProvider : [null];
+    return pricesByProvider ? Object.keys(pricesByProvider.price) : [];
+  }
+
   @action
   updateProvidersList(providers: Array<string>) {
     console.log('Providers', providers);
@@ -71,31 +56,15 @@ export class FuelPricesStore {
   }
 
   @action
-  updateAral1Price(prices: any) {
-    this.aral1 = prices;
-  }
-
-  @action
-  updateAral2Price(prices: any) {
-    this.aral2 = prices;
-  }
-
-  @action
-  updateSupolPrice(prices: any) {
-    this.supol = prices;
-  }
-
-  @action
-  updateOMVPrice(prices: any) {
-    this.omv = prices;
-    this.isLoadingComplete = true;
+  updateSelectedFuelType(type: string) {
+    console.log('selectedType', type);
+    this.selectedFuelType = type;
   }
 
   @action
   updateFuelPrices(prices: any) {
     this.fuelPrices = prices;
   }
-
 
   private orderPriceByProvider = (priceData: any) => {
     return priceData.reduce((acc: any, item: any) => {
@@ -120,7 +89,6 @@ export class FuelPricesStore {
     const url = 'https://my-fuel-prices.achyut.now.sh/list-providers';
     return fetch(url)
       .then(res => res.json())
-
   }
 }
 
