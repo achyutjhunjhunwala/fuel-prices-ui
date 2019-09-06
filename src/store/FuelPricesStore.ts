@@ -38,6 +38,14 @@ export class FuelPricesStore {
   }
 
   @computed
+  get pricesByFuelType() {
+    const pricesByProvider = this.pricesByProvider;
+    const selectedType = this.selectedFuelType;
+    console.log(pricesByProvider);
+    return pricesByProvider;
+  }
+
+  @computed
   get typesByProviders() {
     const [ pricesByProvider ] = this.pricesByProvider ? this.pricesByProvider : [null];
     return pricesByProvider ? Object.keys(pricesByProvider.price) : [];

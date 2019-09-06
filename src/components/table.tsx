@@ -9,22 +9,7 @@ export default function FuelPriceTable() {
     const fuel = FuelPricesStore.typesByProviders;
     console.log(fuel);
     return (
-      <table>
-        <tr>
-          <th>Premium Diesel</th>
-          <th>Super 100+</th>
-          <th>Premium</th>
-          <th>Premium E10</th>
-          <th>Diesel</th>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
+      <div></div>
     )
   });
 }
