@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import FuelPricesStore from '../../store/FuelPricesStore';
 import {useObserver} from 'mobx-react-lite';
-import {useEventCallback, useObservable} from 'rxjs-hooks'
+import {useEventCallback} from 'rxjs-hooks'
 import {
     FlexibleWidthXYPlot,
     XAxis,
@@ -28,7 +28,7 @@ export default function LineChart() {
 
     return useObserver(() => {
         return (
-            <FlexibleWidthXYPlot height="600" margin={{left: 50, right: 50, top: 50, bottom: 50}}>
+            <FlexibleWidthXYPlot height={600} margin={{left: 50, right: 50, top: 50, bottom: 50}}>
                 <VerticalGridLines/>
                 <HorizontalGridLines/>
                 <XAxis/>

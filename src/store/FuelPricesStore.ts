@@ -68,6 +68,7 @@ export class FuelPricesStore {
                     x: new Date(payload.timestamp)
                 }))
         }
+        return [];
     }
 
     @computed
@@ -82,6 +83,7 @@ export class FuelPricesStore {
                 x: new Date(payload.timestamp)
               }))
         }
+        return [];
     }
 
     @action
