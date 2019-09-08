@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import FuelPricesStore from '../../store/FuelPricesStore';
-import { useObserver } from 'mobx-react-lite';
+import {useObserver} from 'mobx-react-lite';
 import {useEventCallback, useObservable} from 'rxjs-hooks'
 import {
     FlexibleWidthXYPlot,
@@ -14,30 +14,30 @@ import {
 import {map} from "rxjs/operators";
 
 export default function LineChart() {
-    const [ value, setValue ] = useState(null);
+    const [value, setValue] = useState({x: {}, y: null});
 
-    const [ rememberValue ] = useEventCallback((event$) =>
+    const [rememberValue] = useEventCallback((event$) =>
         event$.pipe(
             map((e: any) => setValue(e))
         ));
 
-    const [ forgetValue ] = useEventCallback((event$) =>
+    const [forgetValue] = useEventCallback((event$) =>
         event$.pipe(
-            map((e: any) => setValue(null))
+            map((e: any) => setValue({x: {}, y: null}))
         ));
 
     return useObserver(() => {
         return (
-            <FlexibleWidthXYPlot height="300" margin={{left: 50, right: 50, top: 50, bottom: 50}}>
-                <VerticalGridLines />
-                <HorizontalGridLines />
-                <XAxis />
-                <YAxis />
+            <FlexibleWidthXYPlot height="600" margin={{left: 50, right: 50, top: 50, bottom: 50}}>
+                <VerticalGridLines/>
+                <HorizontalGridLines/>
+                <XAxis/>
+                <YAxis/>
                 <LineMarkSeries
                     animation
                     data={FuelPricesStore.maxPricesByFuelType}
-                    lineStyle={{stroke:"red"}}
-                    markStyle={{stroke:"blue"}}
+                    lineStyle={{stroke: "red"}}
+                    markStyle={{stroke: "blue"}}
                 />
 
                 <MarkSeries
@@ -50,8 +50,8 @@ export default function LineChart() {
                 <LineMarkSeries
                     animation
                     data={FuelPricesStore.minPricesByFuelType}
-                    lineStyle={{stroke:"red"}}
-                    markStyle={{stroke:"blue"}}
+                    lineStyle={{stroke: "red"}}
+                    markStyle={{stroke: "blue"}}
                 />
 
                 <MarkSeries
@@ -61,7 +61,14 @@ export default function LineChart() {
                     data={FuelPricesStore.minPricesByFuelType}
                 />
 
-                {value ? <Hint value={value} /> : null}
+                {/*{value ? <Hint value={value} /> : null}*/}
+                {value ? <Hint value={value}>
+                    <div style={{background: 'black'}}>
+                        <p>{value.y}</p>
+                        <p>{value.x.toLocaleString()}</p>
+
+                    </div>
+                </Hint> : null}
             </FlexibleWidthXYPlot>
         )
     });
