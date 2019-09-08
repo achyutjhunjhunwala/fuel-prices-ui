@@ -20,7 +20,7 @@ export default function FuelTypes() {
             {
                 FuelPricesStore.typesByProviders.map((type: any) => (
                     <p className="navbar-item">
-                        <Button color="primary" onClick={updateFuelType}>{ type }</Button>
+                        <Button color={FuelPricesStore.selectedFuelType === type ? 'danger': 'primary'} onClick={updateFuelType}>{ type }</Button>
                     </p>
                 ))
             }

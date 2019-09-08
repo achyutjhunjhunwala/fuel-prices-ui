@@ -1,20 +1,13 @@
 import React from 'react';
 
 import {
-    XYPlot,
+    FlexibleWidthXYPlot,
     XAxis,
     YAxis,
     VerticalGridLines,
     HorizontalGridLines,
     MarkSeries,
-    LineSeries,
     Hint, LineMarkSeries
-} from 'react-vis';
-
-import {
-    FlexibleXYPlot,
-    FlexibleWidthXYPlot,
-    FlexibleHeightXYPlot
 } from 'react-vis';
 
 const data = [

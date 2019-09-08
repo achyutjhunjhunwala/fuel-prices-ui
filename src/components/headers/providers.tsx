@@ -20,7 +20,7 @@ export default function FuelProviders() {
             {
                 FuelPricesStore.providers.map((provider: any) => (
                   <p className="navbar-item">
-                      <Button color="primary" onClick={updateProvider}>{ provider }</Button>
+                      <Button color={FuelPricesStore.selectedProvider === provider ? 'danger': 'primary'} onClick={updateProvider}>{ provider }</Button>
                   </p>
                 ))
             }
