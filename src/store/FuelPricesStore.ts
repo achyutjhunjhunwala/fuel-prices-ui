@@ -63,10 +63,12 @@ export class FuelPricesStore {
                 .map((prices: any) => prices.max)
                 .flat()
                 .sort((a: any, b: any) => a.timestamp - b.timestamp)
-                .map((payload: any) => ({
+                .map((payload: any) => {
+                    // console.log(new Date(payload.timestamp))
+                    return {
                     y: payload.price,
                     x: new Date(payload.timestamp)
-                }))
+                }})
         }
         return [];
     }
@@ -85,6 +87,17 @@ export class FuelPricesStore {
         }
         return [];
     }
+
+    @computed
+    get weekendDates() {
+        const startDate = this.minPricesByFuelType && this.minPricesByFuelType.length ? this.minPricesByFuelType[0].x : new Date();
+        const endDate = new Date();
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        return this.calcBusinessDays(startDate, endDate).map(date => ({
+            y: 2,
+            x: date.getTime()
+        }));
+    };
 
     @action
     updateProvidersList(providers: Array<string>) {
@@ -111,6 +124,18 @@ export class FuelPricesStore {
     updatePricesByProviders(prices: any) {
         this.pricesByProvider = prices;
     }
+
+    private calcBusinessDays = (dDate1: Date, dDate2: Date): Date[] => {
+        const date  = dDate1;
+        const dates = [];
+
+        while (date < dDate2) {
+            if (date.getDay() === 0 || date.getDay() === 6) dates.push(new Date(date));
+            date.setDate( date.getDate() + 1 );
+        }
+
+        return dates;
+    };
 
     private orderPriceByProvider = (priceData: any) => {
         return priceData.reduce((acc: any, item: any) => {
