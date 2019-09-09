@@ -91,7 +91,7 @@ export default function LineChart() {
                         </div>
                     </Hint> : null}
                 </FlexibleWidthXYPlot>
-                <FlexibleWidthXYPlot height={600} margin={{left: 50, right: 50, top: 50, bottom: 50}}>
+                <FlexibleWidthXYPlot height={200} margin={{left: 50, right: 50, top: 50, bottom: 50}}>
                     <VerticalGridLines/>
                     <HorizontalGridLines/>
                     <XAxis title='Time'
@@ -104,7 +104,7 @@ export default function LineChart() {
                                }
                            }}
                     />
-                    <YAxis title='Price'/>
+                    <YAxis title='Holidays'/>
                     <VerticalBarSeries
                         data={FuelPricesStore.weekendDates}
                         onValueMouseOver={rememberValue}
